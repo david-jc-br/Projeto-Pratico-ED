@@ -1,2 +1,2 @@
-# Projeto-Pr-tico-ED
+# Projeto-Prático-ED
 Ordenação em Memória Secundária
