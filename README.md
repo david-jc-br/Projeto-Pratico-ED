@@ -1,4 +1,4 @@
-# Projeto-Pratico-ED 🖥️
+# Projeto Prático ED 🖥️
 ## Ordenação em Memória Secundária
 
 #### [Link Do Relatorio](https://docs.google.com/document/d/19I6_yCY5KDKHBIi5oTKwJ4dR6U2dacK5PAvXFfc6-vM/edit?usp=sharing)
