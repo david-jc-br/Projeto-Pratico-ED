@@ -17,6 +17,7 @@ namespace Package
 		public:
 			Pacote();
 			~Pacote();
+			void inserir();
 	};
 }
 

@@ -3,7 +3,6 @@
 
 #include "classe_pacote.h"
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 using namespace Package;
@@ -13,9 +12,5 @@ int main ()
 {
 	Pacote p;
 	
-
-
-
-
 	return 0;
 }
