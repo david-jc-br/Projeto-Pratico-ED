@@ -6,8 +6,8 @@
 #include <fstream>
 
 using namespace std;
-using namespace Package; 
-//using Package::Pacote; // para quando for invocar alguma função da classe pacote não precisar colocar Pacote::umaFuncaoQualquer
+using namespace Package;
+
 
 int main () 
 {

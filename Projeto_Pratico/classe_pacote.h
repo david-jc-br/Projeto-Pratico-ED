@@ -17,8 +17,6 @@ namespace Package
 		public:
 			Pacote();
 			~Pacote();
-
-		
 	};
 }
 
