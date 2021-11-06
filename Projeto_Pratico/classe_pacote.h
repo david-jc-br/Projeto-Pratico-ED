@@ -1,5 +1,4 @@
-#include <iostream>
-#include <fstream> 
+#include <iostream> 
 
 #ifndef CLASSE_PACOTE_H 
 #define CLASSE_PACOTE_H
@@ -26,4 +25,4 @@ void Pacote :: mostrar()
 
 }
 
-#endif /* CLASSE_PACOTE_H */
+#endif 

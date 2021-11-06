@@ -1,12 +1,11 @@
 //Projeto Final - Ordenação em Memória Secundária - Grupo 12
-// Equipe:David de Jesus Costa, Guilherme Grego Santos, Pedro Henrique Maciel Alves.
+// Equipe: David de Jesus Costa, Guilherme Grego Santos, Pedro Henrique Maciel Alves.
 
 #include "classe_Pacote.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
-
 
 int main () 
 {
@@ -28,6 +27,7 @@ int main ()
 			cout << &umaClasse[j] << endl;
 			umaClasse[j].mostrar();
 		}
+
 	}
 	
 	return 0;
