@@ -16,12 +16,12 @@ class  Pacote
 		char informacao[100];
 
 	public:
-		void exibir(Pacote umPacote, int posicao);
+		void exibir(Pacote umPacote);
 		
 		
 };
 
-void Pacote::exibir(Pacote umPacote, int posicao) 
+void Pacote :: exibir(Pacote umPacote) 
 {
 	std::cout << umPacote.indice << "; ";
 	std::cout << umPacote.tempo << "; ";

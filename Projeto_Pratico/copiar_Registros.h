@@ -9,7 +9,7 @@ bool copiarResgistros(std::fstream &arquivo, int posicao, int tamanho_bloco, Pac
 {
     arquivo.open("capturas_Pacotes.bin", std::ios::binary|std::ios::in);
 
-    arquivo.seekg(posicao*tamanho_bloco);
+    arquivo.seekg(posicao * tamanho_bloco);
 
     for (int i = 0; i < tamanho_bloco; i++) 
     {

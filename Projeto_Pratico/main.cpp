@@ -11,18 +11,17 @@ using namespace std;
 
 int main () 
 {
-	const int qtd_total_registros = 100000;
-	const int num_bytes_registro = sizeof(Pacote);
-	const int tamanho_arquivo = qtd_total_registros * num_bytes_registro; 
-	const int tamanho_bloco = qtd_total_registros/4;
+	const int tamanho_arquivo = 100000 * sizeof(Pacote); 
+	const int tamanho_bloco = 100000/4;
 
 	Pacote *umPacote = new Pacote[25000];
 	fstream registros;
 
-	for (int i = 0; i < 1; i++) 
+	for (int i = 0; i < 4; i++) 
 	{
-		if(copiarResgistros(registros, i, tamanho_bloco, umPacote)) {
-			cout << "registro Copiado";
+		if (copiarResgistros(registros, i, tamanho_bloco, umPacote)) { //arquivo -> memória Ram
+			mergeSort(); // ordena, criar um novo arquivo e armazena nesse novo arquivo
+			cout << "Pacote (" << i << ")criado" << endl;
 		}
 		else {
 			cout << "Não foi possivél abrir o arquivo" << endl;
@@ -31,7 +30,7 @@ int main ()
 	}
 
 	for (int i = 0; i < 10; i++)
-		umPacote[i].exibir(umPacote[i],i);
+		umPacote[i].exibir(umPacote[i]);
 
 
 	delete [] umPacote;
