@@ -16,20 +16,20 @@ class  Pacote
 		char informacao[100];
 
 	public:
-		void exibir(Pacote umPacote[], int posicao);
+		void exibir(Pacote umPacote, int posicao);
 		
 		
 };
 
-void Pacote::exibir(Pacote umPacote[], int posicao) 
+void Pacote::exibir(Pacote umPacote, int posicao) 
 {
-	std::cout << umPacote[posicao].indice << "; ";
-	std::cout << umPacote[posicao].tempo << "; ";
-	std::cout << umPacote[posicao].origem << "; ";
-	std::cout << umPacote[posicao].destino << "; ";
-	std::cout << umPacote[posicao].protocolo << "; ";
-	std::cout << umPacote[posicao].tamanho << "; ";
-	std::cout << umPacote[posicao].informacao << std::endl;
+	std::cout << umPacote.indice << "; ";
+	std::cout << umPacote.tempo << "; ";
+	std::cout << umPacote.origem << "; ";
+	std::cout << umPacote.destino << "; ";
+	std::cout << umPacote.protocolo << "; ";
+	std::cout << umPacote.tamanho << "; ";
+	std::cout << umPacote.informacao << std::endl;
 }
 
 
