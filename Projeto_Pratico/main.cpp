@@ -28,7 +28,6 @@ int main ()
 			cout << "Não foi possivél abrir o arquivo" << endl;
 			return 0;
 		}
-
 	}
 
 	for (int i = 0; i < 10; i++)

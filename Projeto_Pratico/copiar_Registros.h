@@ -11,9 +11,10 @@ bool copiarResgistros(std::fstream &arquivo, int posicao, int tamanho_bloco, Pac
 
     arquivo.seekg(posicao*tamanho_bloco);
 
-    for (int i = 0; i < tamanho_bloco; i++) {
+    for (int i = 0; i < tamanho_bloco; i++) 
+    {
         arquivo.seekg(i*sizeof(Pacote));
-        arquivo.read((char*) &umPacote[i], sizeof(umPacote));   
+        arquivo.read((char*) &umPacote, sizeof(Pacote));   
     }
        
     return true;
