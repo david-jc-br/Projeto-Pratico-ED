@@ -19,8 +19,10 @@ int main ()
 
 	for (int i = 0; i < 4; i++) 
 	{
-		copiarResgistros(registros, i, tamanho_bloco, umPacote); //arquivo -> memória Ram
-		mergeSort(); // ordena, criar um novo arquivo e armazena nesse novo arquivo
+		//copia os registros para os objetos
+		copiarResgistros(registros, i, tamanho_bloco, umPacote); 
+		// ordena o bloco, cria um novo arquivo e armazena o bloco nesse novo arquivo
+		mergeSort(); 
 		cout << "Pacote (" << i << ")criado" << endl;
 	}
 
