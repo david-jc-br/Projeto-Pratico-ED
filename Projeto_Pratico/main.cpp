@@ -19,14 +19,9 @@ int main ()
 
 	for (int i = 0; i < 4; i++) 
 	{
-		if (copiarResgistros(registros, i, tamanho_bloco, umPacote)) { //arquivo -> memória Ram
-			mergeSort(); // ordena, criar um novo arquivo e armazena nesse novo arquivo
-			cout << "Pacote (" << i << ")criado" << endl;
-		}
-		else {
-			cout << "Não foi possivél abrir o arquivo" << endl;
-			return 0;
-		}
+		copiarResgistros(registros, i, tamanho_bloco, umPacote); //arquivo -> memória Ram
+		mergeSort(); // ordena, criar um novo arquivo e armazena nesse novo arquivo
+		cout << "Pacote (" << i << ")criado" << endl;
 	}
 
 	for (int i = 0; i < 10; i++)

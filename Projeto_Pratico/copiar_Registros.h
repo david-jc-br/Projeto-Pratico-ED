@@ -5,7 +5,7 @@
 #ifndef COPIAR_REGISTROS_H 
 #define COPIAR_REGISTROS_H
 
-bool copiarResgistros(std::fstream &arquivo, int posicao, int tamanho_bloco, Pacote umPacote[])
+void copiarResgistros(std::fstream &arquivo, int posicao, int tamanho_bloco, Pacote umPacote[])
 {
     arquivo.open("capturas_Pacotes.bin", std::ios::binary|std::ios::in);
 
@@ -16,8 +16,6 @@ bool copiarResgistros(std::fstream &arquivo, int posicao, int tamanho_bloco, Pac
         arquivo.seekg(i*sizeof(Pacote));
         arquivo.read((char*) &umPacote, sizeof(Pacote));   
     }
-       
-    return true;
 }
 
 
