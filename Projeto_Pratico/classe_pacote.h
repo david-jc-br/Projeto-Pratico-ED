@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream> 
 
 #ifndef CLASSE_PACOTE_H 
 #define CLASSE_PACOTE_H
@@ -8,37 +9,21 @@ class Pacote
 	private:
 		unsigned indice;
 		float tempo;
-		char *origem;
-		char *destino;
-		char *protocolo;
+		char origem[40];
+		char destino[40];
+		char protocolo[18];
 		unsigned tamanho;
-		char *informacao;
+		char informacao[100];
 
 	public:
-		Pacote();
-		~Pacote();
-		void inserir();
+		void mostrar();
 };
 
-Pacote :: Pacote()
-{
-    origem = new char[40];
-    destino = new char[40];
-    protocolo = new char[18];
-    informacao = new char[100];
-}
 
-Pacote :: ~Pacote() 
+void Pacote :: mostrar() 
 {
-    delete [] origem;
-    delete [] destino;
-    delete [] protocolo;
-    delete [] informacao;
-}
+	std::cout << indice << std::endl;
 
-void Pacote :: inserir () 
-{
-    std::cout << "hello" << std::endl;
 }
 
 #endif /* CLASSE_PACOTE_H */
