@@ -1,9 +1,10 @@
 #include <iostream> 
+#include <fstream>
 
 #ifndef CLASSE_PACOTE_H 
 #define CLASSE_PACOTE_H
 
-class Pacote 
+class  Pacote 
 {
 	private:
 		unsigned indice;
@@ -15,14 +16,24 @@ class Pacote
 		char informacao[100];
 
 	public:
-		void mostrar();
+		void exibir(Pacote umPacote[], int posicao);
+		
+		
 };
 
-
-void Pacote :: mostrar() 
+void Pacote::exibir(Pacote umPacote[], int posicao) 
 {
-	std::cout << indice << std::endl;
-
+	std::cout << umPacote[posicao].indice << "; ";
+	std::cout << umPacote[posicao].tempo << "; ";
+	std::cout << umPacote[posicao].origem << "; ";
+	std::cout << umPacote[posicao].destino << "; ";
+	std::cout << umPacote[posicao].protocolo << "; ";
+	std::cout << umPacote[posicao].tamanho << "; ";
+	std::cout << umPacote[posicao].informacao << std::endl;
 }
+
+
+
+
 
 #endif 

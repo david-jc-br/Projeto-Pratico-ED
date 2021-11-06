@@ -2,6 +2,8 @@
 // Equipe: David de Jesus Costa, Guilherme Grego Santos, Pedro Henrique Maciel Alves.
 
 #include "classe_Pacote.h"
+#include "merge_sort.h"
+#include "copiar_Registros.h"
 #include <iostream>
 #include <fstream>
 
@@ -9,26 +11,31 @@ using namespace std;
 
 int main () 
 {
-	Pacote *umaClasse = new Pacote[25000];
+	const int qtd_total_registros = 100000;
+	const int num_bytes_registro = sizeof(Pacote);
+	const int tamanho_arquivo = qtd_total_registros * num_bytes_registro; 
+	const int tamanho_bloco = qtd_total_registros/4;
 
-	fstream arquivo ("capturas_Pacotes.bin", ios::in|ios::ate);
-	long int tamanho_bytes = sizeof(Pacote)*100000; 
-	long int num_regs = int (tamanho_bytes/sizeof(Pacote));
-	int tam_bytes_regs = sizeof(Pacote);
-	int tamanho_bloco = num_regs/4;
+	Pacote *umPacote = new Pacote[25000];
+	fstream registros;
 
-
-	for (int i = 0; i < num_regs; i += 25000) 
+	for (int i = 0; i < 1; i++) 
 	{
-		for (int j = i; j < 100 ; j++) 
-		{
-			arquivo.seekp((j) * tam_bytes_regs);
-			arquivo.read((char*) &umaClasse, sizeof(Pacote));
-			cout << &umaClasse[j] << endl;
-			umaClasse[j].mostrar();
+		if(copiarResgistros(registros, i, tamanho_bloco, umPacote)) {
+			cout << "registro Copiado";
+		}
+		else {
+			cout << "Não foi possivél abrir o arquivo" << endl;
+			return 0;
 		}
 
 	}
+
+	for (int i = 0; i < 10; i++)
+		umPacote[i].exibir(umPacote,i);
+
+
+	delete [] umPacote;
 	
 	return 0;
 }

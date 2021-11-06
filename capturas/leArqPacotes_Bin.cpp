@@ -18,9 +18,10 @@ struct pacote {
 };
 
 
-void le_arquivo_bin(ifstream& arquivo) {
+void le_arquivo_bin(fstream& arquivo) {
     pacote umPacote;
-    while(arquivo.read((char*) &umPacote, sizeof(umPacote))) {
+    for(int i = 0; i < 6; i++) {
+        (arquivo.read((char*) &umPacote, sizeof(umPacote))); 
         cout << umPacote.indice << "; ";
         cout << umPacote.tempo << "; ";
         cout << umPacote.origem << "; ";
@@ -33,7 +34,7 @@ void le_arquivo_bin(ifstream& arquivo) {
 
 
 int main(){
-    ifstream arquivo_bin_read("captura_pacotes.bin",ios::binary);
+    fstream arquivo_bin_read("captura_pacotes.bin",ios::binary);
 
     le_arquivo_bin(arquivo_bin_read);
 
