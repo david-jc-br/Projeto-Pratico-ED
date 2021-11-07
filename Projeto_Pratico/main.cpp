@@ -29,7 +29,7 @@ int main ()
 	}
 
 	for (int i = 0; i < 10; i++)
-		pacote[i].exibir(pacote[i]);
+		pacote[i].imprime(pacote[i]);
 
 
 	delete [] pacote;

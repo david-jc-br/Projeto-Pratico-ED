@@ -17,12 +17,12 @@ class  Registro
 		char informacao[100];
 
 	public:
-		void exibir(Registro umRegistro);
+		void imprime(Registro umRegistro);
 		
 		
 };
 
-void Registro :: exibir(Registro umRegistro) 
+void Registro :: imprime(Registro umRegistro) 
 {
 	std::cout << umRegistro.indice << "; ";
 	std::cout << umRegistro.tempo << "; ";
