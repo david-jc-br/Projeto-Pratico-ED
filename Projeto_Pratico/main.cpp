@@ -20,13 +20,14 @@ int main ()
 	
 	for (int cont = 0; cont < 4; cont++) 
 	{	
-		for (int i = 0; i < tamanho_pacotes; i++)
+		for (int i = 0; i < tamanho_pacotes; i++) //copiando regitros para vetor o de objetos
 			arquivo.read((char*) &umRegistro[i], sizeof(umRegistro[i]));
 
 		for (int i = 0; i < 10; i++) // teste
-		umRegistro[i].imprime();
+			umRegistro[i].imprime();
 
-		mergeSort(); 
+		mergeSort(); //ordena vetor de objetos e gera um novo bloco;
+
 		cout << "Bloco (" << cont << ")criado" << endl;
 	}
 
