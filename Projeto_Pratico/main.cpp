@@ -17,16 +17,17 @@ int main ()
 
 	arquivo.open("my_registros.bin", std::ios::in | std::ios::binary);
 
-	
 	for (int cont = 0; cont < 4; cont++) 
-	{	
+	{		
+		arquivo.seekg(212 * (cont * tamanho_pacotes)); // calcula posição da cabeça de leitura
+
 		for (int i = 0; i < tamanho_pacotes; i++) //copiando regitros para vetor o de objetos
 			arquivo.read((char*) &umRegistro[i], sizeof(umRegistro[i]));
 
+		mergeSort(); //ordena vetor de objetos e gera um novo arquivo armazenado os registros ordenados;
+
 		for (int i = 0; i < 10; i++) // teste
 			umRegistro[i].imprime();
-
-		mergeSort(); //ordena vetor de objetos e gera um novo bloco;
 
 		cout << "Bloco (" << cont << ")criado" << endl;
 	}
