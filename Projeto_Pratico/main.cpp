@@ -19,7 +19,7 @@ int main ()
 
 	for (int cont = 0; cont < 4; cont++) 
 	{		
-		arquivo.seekg(212 * (cont * tamanho_pacotes)); // calcula posição da cabeça de leitura
+		arquivo.seekg(sizeof(Registro) * (cont * tamanho_pacotes)); // calcula posição da cabeça de leitura
 
 		for (int i = 0; i < tamanho_pacotes; i++) //copiando regitros para vetor o de objetos
 			arquivo.read((char*) &umRegistro[i], sizeof(umRegistro[i]));
