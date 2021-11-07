@@ -29,7 +29,7 @@ int main ()
 		for (int i = 0; i < 10; i++) // teste
 			umRegistro[i].imprime();
 
-		cout << "Bloco (" << cont << ")criado" << endl;
+		cout << "Bloco (" << cont+1 << ")criado" << endl;
 	}
 
 	
