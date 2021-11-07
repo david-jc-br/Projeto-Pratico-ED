@@ -3,7 +3,6 @@
 
 #include "class_registro.h"
 #include "merge_sort.h"
-#include "copiar_registros.h"
 #include <iostream>
 #include <fstream>
 
@@ -11,29 +10,30 @@ using namespace std;
 
 int main () 
 {
-	const int tamanho_arquivo = 100000 * sizeof(Registro); 
 	const int tamanho_pacotes = 100000/4;
 
-	Registro *pacote = new Registro[25000];
-	fstream registros;
+	Registro *umRegistro = new Registro[25000];
+	ifstream arquivo;
 
-	registros.open("capturas_Registros.bin", std::ios::binary|std::ios::in);
+	arquivo.open("my_registros.bin", std::ios::in | std::ios::binary);
 
-	for (int i = 0; i < 4; i++) 
-	{
-		//copia os registros para os objetos
-		copiarResgistros(registros, i, tamanho_pacotes, pacote); 
-		// ordena o pacote, cria um novo arquivo e armazena o bloco nesse novo arquivo
+	
+	for (int cont = 0; cont < 4; cont++) 
+	{	
+		for (int i = 0; i < tamanho_pacotes; i++)
+			arquivo.read((char*) &umRegistro[i], sizeof(umRegistro[i]));
+
+		for (int i = 0; i < 10; i++) // teste
+		umRegistro[i].imprime();
+
 		mergeSort(); 
-		cout << "Registro (" << i << ")criado" << endl;
-
-		for (int i = 0; i < 10; i++)
-			pacote[i].imprime();
+		cout << "Bloco (" << cont << ")criado" << endl;
 	}
 
-	registros.close();
+	
+	arquivo.close();
 
-	delete [] pacote;
+	delete [] umRegistro;
 	
 	return 0;
 }

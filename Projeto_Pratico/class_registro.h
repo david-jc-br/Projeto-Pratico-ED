@@ -18,8 +18,6 @@ class  Registro
 
 	public:
 		void imprime();
-		
-		
 };
 
 void Registro :: imprime() 
@@ -32,7 +30,5 @@ void Registro :: imprime()
 	std::cout << tamanho << "; ";
 	std::cout << informacao << std::endl;
 }
-
-
 
 #endif 
