@@ -1,22 +1,20 @@
-#include "classe_pacote.h"
 #include <iostream> 
 #include <fstream>
+#include "class_registro.h"
 
 #ifndef COPIAR_REGISTROS_H 
 #define COPIAR_REGISTROS_H
 
-void copiarResgistros(std::fstream &arquivo, int posicao, int tamanho_bloco, Pacote umPacote[])
+void copiarResgistros(std::fstream &arquivo, int posicao, int tamanho_pacotes, Registro umRegistro[])
 {
-    arquivo.open("capturas_Pacotes.bin", std::ios::binary|std::ios::in);
+    arquivo.open("capturas_Registros.bin", std::ios::binary|std::ios::in);
+    arquivo.seekg(posicao * tamanho_pacotes);
 
-    arquivo.seekg(posicao * tamanho_bloco);
-
-    for (int i = 0; i < tamanho_bloco; i++) 
+    for (int i = 0; i < tamanho_pacotes; i++) 
     {
-        arquivo.seekg(i*sizeof(Pacote));
-        arquivo.read((char*) &umPacote, sizeof(Pacote));   
+        arquivo.seekg(i*sizeof(Registro));
+        arquivo.read((char*) &umRegistro, sizeof(Registro));   
     }
 }
-
 
 #endif 

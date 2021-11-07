@@ -1,9 +1,9 @@
 //Projeto Final - Ordenação em Memória Secundária - Grupo 12
 // Equipe: David de Jesus Costa, Guilherme Grego Santos, Pedro Henrique Maciel Alves.
 
-#include "classe_Pacote.h"
+#include "class_registro.h"
 #include "merge_sort.h"
-#include "copiar_Registros.h"
+#include "copiar_registros.h"
 #include <iostream>
 #include <fstream>
 
@@ -11,26 +11,28 @@ using namespace std;
 
 int main () 
 {
-	const int tamanho_arquivo = 100000 * sizeof(Pacote); 
-	const int tamanho_bloco = 100000/4;
+	const int tamanho_arquivo = 100000 * sizeof(Registro); 
+	const int tamanho_pacotes = 100000/4;
 
-	Pacote *umPacote = new Pacote[25000];
+	Registro *pacote = new Registro[25000];
 	fstream registros;
+
+	registros.open("capturas_Registros.bin", std::ios::binary|std::ios::in);
 
 	for (int i = 0; i < 4; i++) 
 	{
 		//copia os registros para os objetos
-		copiarResgistros(registros, i, tamanho_bloco, umPacote); 
-		// ordena o bloco, cria um novo arquivo e armazena o bloco nesse novo arquivo
+		copiarResgistros(registros, i, tamanho_pacotes, pacote); 
+		// ordena o pacote, cria um novo arquivo e armazena o bloco nesse novo arquivo
 		mergeSort(); 
-		cout << "Pacote (" << i << ")criado" << endl;
+		cout << "Registro (" << i << ")criado" << endl;
 	}
 
 	for (int i = 0; i < 10; i++)
-		umPacote[i].exibir(umPacote[i]);
+		pacote[i].exibir(pacote[i]);
 
 
-	delete [] umPacote;
+	delete [] pacote;
 	
 	return 0;
 }
