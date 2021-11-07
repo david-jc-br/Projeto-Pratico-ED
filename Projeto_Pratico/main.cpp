@@ -26,11 +26,14 @@ int main ()
 		// ordena o pacote, cria um novo arquivo e armazena o bloco nesse novo arquivo
 		mergeSort(); 
 		cout << "Registro (" << i << ")criado" << endl;
+
+		for (int i = 0; i < 10; i++)
+			pacote[i].imprime(pacote[i]);
 	}
 
-	for (int i = 0; i < 10; i++)
-		pacote[i].imprime(pacote[i]);
 
+
+	registros.close();
 
 	delete [] pacote;
 	
