@@ -7,11 +7,11 @@
 
 void copiarResgistros(std::fstream &arquivo, int posicao, int tamanho_pacotes, Registro umRegistro[])
 {
-    arquivo.seekg(3 * tamanho_pacotes);
+    arquivo.seekg(posicao * tamanho_pacotes);
 
     for (int i = 0; i < tamanho_pacotes; i++) 
     {
-        //arquivo.seekg((i*sizeof(Registro)));
+        arquivo.seekg((i*sizeof(Registro)));
         arquivo.read((char*) &umRegistro, sizeof(Registro));   
     }
 }

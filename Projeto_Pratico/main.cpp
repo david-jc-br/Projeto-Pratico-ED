@@ -28,10 +28,8 @@ int main ()
 		cout << "Registro (" << i << ")criado" << endl;
 
 		for (int i = 0; i < 10; i++)
-			pacote[i].imprime(pacote[i]);
+			pacote[i].imprime();
 	}
-
-
 
 	registros.close();
 

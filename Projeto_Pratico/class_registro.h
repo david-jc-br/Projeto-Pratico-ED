@@ -17,23 +17,21 @@ class  Registro
 		char informacao[100];
 
 	public:
-		void imprime(Registro umRegistro);
+		void imprime();
 		
 		
 };
 
-void Registro :: imprime(Registro umRegistro) 
+void Registro :: imprime() 
 {
-	std::cout << umRegistro.indice << "; ";
-	std::cout << umRegistro.tempo << "; ";
-	std::cout << umRegistro.origem << "; ";
-	std::cout << umRegistro.destino << "; ";
-	std::cout << umRegistro.protocolo << "; ";
-	std::cout << umRegistro.tamanho << "; ";
-	std::cout << umRegistro.informacao << std::endl;
+	std::cout << indice << "; ";
+	std::cout << tempo << "; ";
+	std::cout << origem << "; ";
+	std::cout << destino << "; ";
+	std::cout << protocolo << "; ";
+	std::cout << tamanho << "; ";
+	std::cout << informacao << std::endl;
 }
-
-
 
 
 
