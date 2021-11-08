@@ -2,29 +2,30 @@
 // Equipe: David de Jesus Costa, Guilherme Grego Santos, Pedro Henrique Maciel Alves.
 
 #include "class_registro.h"
+#include "void_copia_registros.h"
 #include "merge_sort.h"
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 
 using namespace std;
 
 int main () 
 {
-	const int tamanho_pacotes = 100000/4;
-
 	Registro *umRegistro = new Registro[25000];
-	ifstream arquivo;
+	const int tamanho_pacotes = 100000/4;
+	int posicao_bytes;
+	fstream arquivo;
 
 	arquivo.open("captura_pacotes.bin", std::ios::in | std::ios::binary);
 
-	for (int cont = 0; cont < 4; cont++) 
+	for (int cont = 0; cont < 4; cont++) // criar os 4 blocos ordenados
 	{		
-		arquivo.seekg(sizeof(Registro) * (cont * tamanho_pacotes)); // calcula posição da cabeça de leitura
+		posicao_bytes = sizeof(Registro) * (cont * tamanho_pacotes);
 
-		for (int i = 0; i < tamanho_pacotes; i++) //copiando regitros para vetor o de objetos
-			arquivo.read((char*) &umRegistro[i], sizeof(umRegistro[i]));
+		copiaRegistros(arquivo, umRegistro, posicao_bytes, tamanho_pacotes);
 
-		mergeSort(); //ordena vetor de objetos e gera um novo arquivo armazenado os registros ordenados;
+		mergeSort(); 
 
 		for (int i = 0; i < 10; i++) // teste
 			umRegistro[i].imprime();
