@@ -29,8 +29,8 @@ int main ()
 
 		cin >> escolha_ordenacao;
 
-		if (escolha_ordenacao != 1 | escolha_ordenacao != 2){
-			cout << "Opção inexistente" << endl;
+		if ((escolha_ordenacao < 1 ) || (escolha_ordenacao > 2)) {
+			cout << "\"Opção inexistente\"" << endl;
 			return 0;
 		}
 	}
