@@ -28,6 +28,11 @@ int main ()
 			 << "\n(2) Informação\n\n->";
 
 		cin >> escolha_ordenacao;
+
+		if (escolha_ordenacao != 1 | escolha_ordenacao != 2){
+			cout << "Opção inexistente" << endl;
+			return 0;
+		}
 	}
 	else {
 		cout << "Não foi possivél ler o arquivo" << endl;
