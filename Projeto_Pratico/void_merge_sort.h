@@ -16,8 +16,6 @@ void mergeSort (Registro umRegistro[], int escolha_ordenacao)
         std::cout << "MergeSort2" << std::endl;
 
     }
-
-
 }
 
 

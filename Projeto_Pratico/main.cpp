@@ -16,8 +16,8 @@ int main ()
 {
 	Registro *umRegistro = new Registro[25000];
 	const int tamanho_pacotes = 100000/4;
-	int posicao_bytes;
 	int escolha_ordenacao;
+	int posicao_bytes;
 	fstream arquivo;
 
 	if (arquivo) 
