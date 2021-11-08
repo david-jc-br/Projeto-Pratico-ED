@@ -15,17 +15,17 @@ int main ()
 	Registro *umRegistro = new Registro[25000];
 	const int tamanho_pacotes = 100000/4;
 	int posicao_bytes;
-	int escolha_ordenação;
+	int escolha_ordenacao;
 	fstream arquivo;
 
 	if (arquivo) {
 		arquivo.open("captura_pacotes.bin", std::ios::in | std::ios::binary);
 		
-		cout << "Escolha como queres ordenar o arquivo:\n" 
+		cout << "Escolha como você quer ordenar o arquivo:\n" 
 			 << "\n(1) Indice"
 			 << "\n(2) Informação";
 
-		cin >> escolha_ordenação;
+		cin >> escolha_ordenacao;
 	}
 	else {
 		cout << "Não foi possivél ler o arquivo" << endl;
@@ -38,7 +38,7 @@ int main ()
 
 		copiaRegistros(arquivo, umRegistro, posicao_bytes, tamanho_pacotes);
 
-		mergeSort(escolha_ordenação); 
+		mergeSort(escolha_ordenacao); 
 
 		for (int i = 0; i < 25000; i++) // teste
 			umRegistro[i].imprime();
