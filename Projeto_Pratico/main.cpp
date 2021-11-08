@@ -1,4 +1,4 @@
-//Projeto Final - Ordenação em Memória Secundária - Grupo 12
+// Projeto Final - Ordenação em Memória Secundária - Grupo 12
 // Equipe: David de Jesus Costa, Guilherme Grego Santos, Pedro Henrique Maciel Alves.
 
 #include <iostream>
@@ -20,7 +20,8 @@ int main ()
 	int escolha_ordenacao;
 	fstream arquivo;
 
-	if (arquivo) { // escolhe o tipo de ordenação
+	if (arquivo) 
+	{ // escolhe o tipo de ordenação
 		arquivo.open("captura_pacotes.bin", std::ios::in | std::ios::binary);
 		
 		cout << "Digite, ordenar por:\n" 
@@ -29,12 +30,14 @@ int main ()
 
 		cin >> escolha_ordenacao;
 
-		if ((escolha_ordenacao != 1 ) || (escolha_ordenacao != 2)) {
+		if ((escolha_ordenacao != 1 ) || (escolha_ordenacao != 2)) 
+		{
 			cout << "\"Opção inexistente\"" << endl;
 			return 0;
 		}
 	}
-	else {
+	else 
+	{
 		cout << "Não foi possivél ler o arquivo" << endl;
 		return 0;
 	}
