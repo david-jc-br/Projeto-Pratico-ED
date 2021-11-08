@@ -3,7 +3,7 @@
 
 #include "class_registro.h"
 #include "void_copia_registros.h"
-#include "merge_sort.h"
+#include "void_merge_sort.h"
 #include <iostream>
 #include <fstream>
 #include <cstdio>
@@ -15,25 +15,37 @@ int main ()
 	Registro *umRegistro = new Registro[25000];
 	const int tamanho_pacotes = 100000/4;
 	int posicao_bytes;
+	int escolha_ordenação;
 	fstream arquivo;
 
-	arquivo.open("captura_pacotes.bin", std::ios::in | std::ios::binary);
+	if (arquivo) {
+		arquivo.open("captura_pacotes.bin", std::ios::in | std::ios::binary);
+		
+		cout << "Escolha como queres ordenar o arquivo:\n" 
+			 << "\n(1) Indice"
+			 << "\n(2) Informação";
 
+		cin >> escolha_ordenação;
+	}
+	else {
+		cout << "Não foi possivél ler o arquivo" << endl;
+		return 0;
+	}
+	
 	for (int cont = 0; cont < 4; cont++) // criar os 4 blocos ordenados
 	{		
 		posicao_bytes = sizeof(Registro) * (cont * tamanho_pacotes);
 
 		copiaRegistros(arquivo, umRegistro, posicao_bytes, tamanho_pacotes);
 
-		mergeSort(); 
+		mergeSort(escolha_ordenação); 
 
-		for (int i = 0; i < 10; i++) // teste
+		for (int i = 0; i < 25000; i++) // teste
 			umRegistro[i].imprime();
 
-		cout << "Bloco (" << cont+1 << ")criado" << endl;
+		cout << "Arquivo temporário (" << cont+1 << ")criado" << endl;
 	}
 
-	
 	arquivo.close();
 
 	delete [] umRegistro;
