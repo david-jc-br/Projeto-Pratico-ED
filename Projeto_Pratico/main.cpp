@@ -42,8 +42,6 @@ int main ()
 
 		for (int i = 0; i < 10; i++) // teste
 			umRegistro[i].imprime();
-
-		cout << "Arquivo temporário (" << cont+1 << ")criado" << endl;
 	}
 
 	arquivo.close();
