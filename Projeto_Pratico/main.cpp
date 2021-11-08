@@ -18,7 +18,7 @@ int main ()
 	int escolha_ordenacao;
 	fstream arquivo;
 
-	if (arquivo) {
+	if (arquivo) { // escolhe o tipo de ordenação
 		arquivo.open("captura_pacotes.bin", std::ios::in | std::ios::binary);
 		
 		cout << "Digite, ordenar por:\n" 
