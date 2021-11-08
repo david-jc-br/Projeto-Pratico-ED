@@ -21,9 +21,9 @@ int main ()
 	if (arquivo) {
 		arquivo.open("captura_pacotes.bin", std::ios::in | std::ios::binary);
 		
-		cout << "Escolha como você quer ordenar o arquivo:\n" 
+		cout << "Digite, ordenar por:\n" 
 			 << "\n(1) Indice"
-			 << "\n(2) Informação";
+			 << "\n(2) Informação\n\n->";
 
 		cin >> escolha_ordenacao;
 	}
@@ -40,7 +40,7 @@ int main ()
 
 		mergeSort(escolha_ordenacao); 
 
-		for (int i = 0; i < 25000; i++) // teste
+		for (int i = 0; i < 10; i++) // teste
 			umRegistro[i].imprime();
 
 		cout << "Arquivo temporário (" << cont+1 << ")criado" << endl;
