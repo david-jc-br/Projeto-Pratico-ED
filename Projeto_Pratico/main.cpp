@@ -15,7 +15,7 @@ int main ()
 	Registro *umRegistro = new Registro[25000];
 	ifstream arquivo;
 
-	arquivo.open("my_registros.bin", std::ios::in | std::ios::binary);
+	arquivo.open("captura_pacotes.bin", std::ios::in | std::ios::binary);
 
 	for (int cont = 0; cont < 4; cont++) 
 	{		
