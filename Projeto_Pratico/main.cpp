@@ -4,11 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
-
+#include "void_escreve_registro.h"
 #include "class_registro.h"
 #include "void_copia_registros.h"
-#include "void_merge_sort.h"
-
 
 using namespace std;
 
@@ -19,6 +17,8 @@ int main ()
 	int escolha_ordenacao;
 	int posicao_bytes;
 	fstream arquivo;
+    //char buffer[5300000];
+	Registro objAux;
 
 	if (arquivo) 
 	{ // escolhe o tipo de ordenação
@@ -30,7 +30,7 @@ int main ()
 
 		cin >> escolha_ordenacao;
 
-		if ((escolha_ordenacao != 1 ) || (escolha_ordenacao != 2)) 
+		if ((escolha_ordenacao != 1 ) && (escolha_ordenacao != 2)) 
 		{
 			cout << "\"Opção inexistente\"" << endl;
 			return 0;
@@ -47,8 +47,6 @@ int main ()
 		posicao_bytes = sizeof(Registro) * (cont * tamanho_pacotes);
 
 		copiaRegistros(arquivo, umRegistro, posicao_bytes, tamanho_pacotes);
-
-		mergeSort(umRegistro, escolha_ordenacao); 
 
 		for (int i = 0; i < 10; i++) // teste
 			umRegistro[i].imprime();
