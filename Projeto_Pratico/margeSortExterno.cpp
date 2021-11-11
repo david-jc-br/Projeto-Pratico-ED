@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstdio> // para remover arquivos
 #include <cstdlib>
+#include <cstring>
 
 using namespace std;
 
@@ -18,8 +19,8 @@ class Registro
         char informacao[100];
     public:
         void imprime();
-        void mergeexterno (ifstream &arqEntrada, ofstream &arqSaida);
-        bool intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, int saida);
+        void mergeexterno (ifstream &arqEntrada, fstream &arqSaida, int escolha_ordenacao);
+        bool intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, int saida, int escolha_ordenacao);
 
 };
 
@@ -34,7 +35,7 @@ void Registro :: imprime()
     std::cout << informacao << std::endl;
 }
 
-bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, int saida) {
+bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, int saida, int escolha_ordenacao) {
     // consideramos incialmente que naão irá fazer nenhuma intercalação 
     bool intercalou = false;
     Registro dados[2];
@@ -50,7 +51,7 @@ bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, in
     while (((pos[0] + pos[1] )) < (2*passo)) {
 		cont++;
         // incialmente verificamos se há dados para ser lidos
-        if ((pos[0] < passo) && (!valido[0])) {
+        if ((pos[0] < passo) and (!valido[0])) {
             /*tentamos ler o arquivo verificando se a leitura foi válida */
             //leitura inválida -> final do arquivo
             if (auxE[0].read((char *) &dados[0] , sizeof(Registro))) {
@@ -65,7 +66,7 @@ bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, in
         }
 
         //repetimos o processo para o segundo arquivo
-        if ((pos[1] < passo) && (!valido[1])) {
+        if ((pos[1] < passo) and (!valido[1])) {
             /*tentamos ler o arquivo verificando se a leitura foi válida */
             //leitura inválida -> final do arquivo
             if (auxE[1].read((char *) &dados[1] , sizeof(Registro))) {
@@ -83,16 +84,22 @@ bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, in
         não ser que um (ou ambos) tenham chegado a o fim*/
             
         //1° caso, os dois dados são válidos 
-        if (valido[0] && valido[1]) {
+        if (valido[0] and valido[1]) {
             // marca que intercalou
             intercalou = true;
             // gravamos o menor valor no arquivo de saída 
-            if (dados[0].indice <= dados[1].indice) {
+            if (dados[0].indice >= dados[1].indice and escolha_ordenacao == 1) {
                 auxS[saida].write((const char *) (&dados[0]), sizeof(Registro));
                 // dado utilizado não é mais válido, avança posição
                 valido[0] = false;
                 pos[0]++;
             }
+            else if ((strcmp(dados[0].informacao,dados[1].informacao) < 0) and escolha_ordenacao == 2) {
+				auxS[saida].write((const char *) (&dados[0]), sizeof(Registro));
+                // dado utilizado não é mais válido, avança posição
+                valido[0] = false;
+                pos[0]++;
+			}
             else {
                 auxS[saida].write((const char *) (&dados[1].indice), sizeof(Registro));
                 // dado ultilizado não é mais válido, avança posição 
@@ -122,7 +129,7 @@ bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, in
     return intercalou;
 }
 
-void Registro::mergeexterno (ifstream &arqEntrada, ofstream &arqSaida){
+void Registro::mergeexterno (ifstream &arqEntrada, fstream &arqSaida, int escolha_ordenacao){
     ofstream arqB1("arqB1.bin",ios::binary);
     ofstream arqB2("arqB2.bin",ios::binary);
 
@@ -189,8 +196,8 @@ void Registro::mergeexterno (ifstream &arqEntrada, ofstream &arqSaida){
         }
         //enquanto não chegar ao final dos arquivos de entrada, vai intercalando os blocos
         while ((! auxEntrada[0].eof()) && (! auxEntrada[1].eof())){
-            ultimo[0] = intercalaBloco(auxEntrada,auxSaida,passo,0);
-            ultimo[1] = intercalaBloco(auxEntrada,auxSaida,passo,1);
+            ultimo[0] = intercalaBloco(auxEntrada,auxSaida,passo,0,escolha_ordenacao);
+            ultimo[1] = intercalaBloco(auxEntrada,auxSaida,passo,1,escolha_ordenacao);
         }
         
         //fecha os arquivos para permitir troca (escrita<->leitura) na próxima interação
@@ -244,11 +251,19 @@ void Registro::mergeexterno (ifstream &arqEntrada, ofstream &arqSaida){
     
 }
 
+void copiaRegistros (fstream &arquivo, Registro umRegistro[], int posicao_bytes)
+{
+    arquivo.seekg(posicao_bytes); // Posiciona a cabeça de leitura
+	
+    for (int i = 0; i < 100000; i++) //copiando regitros para vetor o de objetos
+        arquivo.read((char*) &umRegistro[i], sizeof(umRegistro[i]));
+}
+
 int main () {
     ifstream entrada("captura_pacotes.bin",ios::binary);
-    ofstream saida("saida.bin",ios::binary);
-    
-    Registro aux;
+    fstream saida("saida.bin",ios::binary | ios::in |ios::out);
+   
+    Registro *umRegistro = new Registro[100000];
 
     if (! entrada) {
         cerr <<"Arquivo de entrada não pode ser aberto" << endl;
@@ -258,9 +273,20 @@ int main () {
         cerr <<"Arquivo de saida não pode ser aberto" << endl;
         exit(EXIT_FAILURE);
     }
-
-    aux.mergeexterno(entrada,saida);
     
+    int escolha_ordenacao;
+    
+    cout <<"Digite o metodo : " << endl;
+    
+    cin >> escolha_ordenacao;
+
+    umRegistro->mergeexterno(entrada,saida,escolha_ordenacao);
+
+    /*copiaRegistros(saida, umRegistro, 0);
+    
+    for(int i = 0; i < 100; i++) // teste
+			umRegistro[i].imprime();*/
+			
     entrada.close();
     saida.close();
     

@@ -14,13 +14,6 @@ using namespace std;
 int main () 
 {
 	ifstream arquivo_entrada;
-
-	if (!arquivo_entrada) 
-	{ 
-		cerr << "Não foi possivél crir o arquivo" << endl;
-		exit(EXIT_FAILURE);
-	}
-
 	ofstream ArquivoTemporario1 ("arqTemp1.bin");
 	ofstream ArquivoTemporario2 ("arqTemp2.bin");
 	ArquivoTemporario1.open("arqTemp1.bin", ios::binary);
@@ -28,7 +21,7 @@ int main ()
 
 	if ((!ArquivoTemporario1) | (!ArquivoTemporario2)) 
 	{
-		cerr << "Não foi possivél criar os arquivos temporários" << endl;
+		cerr << "Não foi possivél criar o arquivo" << endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -48,8 +41,8 @@ int main ()
 	int posicao_arquivoTemp;
 
 	cout << "Digite, ordenar por:\n" 
-			<< "\n(1) Indice"
-			<< "\n(2) Informação\n\n->";
+		 << "\n(1) Indice"
+		 << "\n(2) Informação\n\n->";
 
 	cin >> escolha_ordenacao;
 
@@ -95,5 +88,4 @@ int main ()
 	delete [] umRegistro;
 	
 	return 0;
-	
 }
