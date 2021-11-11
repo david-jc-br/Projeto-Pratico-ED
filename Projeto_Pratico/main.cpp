@@ -6,14 +6,32 @@
 #include <cstdio>
 
 #include "void_escreve_registro.h"
-#include "class_registro.h"
 #include "void_copia_registros.h"
+#include "class_registro.h"
 
 using namespace std;
 
 int main () 
 {
 	ifstream arquivo_entrada;
+
+	if (!arquivo_entrada) 
+	{ 
+		cerr << "Não foi possivél crir o arquivo" << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	ofstream ArquivoTemporario1 ("arqTemp1.bin");
+	ofstream ArquivoTemporario2 ("arqTemp2.bin");
+	ArquivoTemporario1.open("arqTemp1.bin", ios::binary);
+	ArquivoTemporario2.open("arqTemp2.bin", ios::binary);
+
+	if ((!ArquivoTemporario1) | (!ArquivoTemporario2)) 
+	{
+		cerr << "Não foi possivél criar os arquivos temporários" << endl;
+		exit(EXIT_FAILURE);
+	}
+
 	arquivo_entrada.open("captura_pacotes.bin", ios::in | ios::binary);
 	arquivo_entrada.seekg(0,ios::end);
 
@@ -26,27 +44,21 @@ int main ()
 	Registro objAux;
 
 	short escolha_ordenacao;
-	short posicao_bytes;
+	int posicao_bytes;
+	int posicao_arquivoTemp;
 
-	if (arquivo_entrada) 
-	{ 
-		cout << "Digite, ordenar por:\n" 
-			 << "\n(1) Indice"
-			 << "\n(2) Informação\n\n->";
+	cout << "Digite, ordenar por:\n" 
+			<< "\n(1) Indice"
+			<< "\n(2) Informação\n\n->";
 
-		cin >> escolha_ordenacao;
+	cin >> escolha_ordenacao;
 
-		if ((escolha_ordenacao != 1 ) && (escolha_ordenacao != 2)) 
-		{
-			cerr << "\"Opção inexistente\"" << endl;
-			exit(EXIT_FAILURE);
-		}
-	}
-	else 
+	if ((escolha_ordenacao != 1 ) && (escolha_ordenacao != 2)) 
 	{
-		cerr << "Não foi possivél ler o arquivo" << endl;
+		cerr << "\"Opção inexistente\"" << endl;
 		exit(EXIT_FAILURE);
 	}
+
 
 	for (int cont = 0; cont < 4; cont++) 
 	{		
@@ -56,17 +68,32 @@ int main ()
 
 		objAux.mergeSortInterno(umRegistro,tamanho_pacotes,escolha_ordenacao);
 
-		for(int i = 0; i < 20; i++) // teste
+		if ((cont == 0) || (cont == 1)) 
+			posicao_arquivoTemp = 0;
+		else
+			posicao_arquivoTemp = tamanho_registro * (2 * tamanho_pacotes);
+
+        if (cont == 0 | cont == 2)
+			escreveRegistros(ArquivoTemporario1, umRegistro, posicao_arquivoTemp, tamanho_pacotes);
+		else 
+		    escreveRegistros(ArquivoTemporario2, umRegistro, posicao_arquivoTemp, tamanho_pacotes);
+
+		/*for(int i = 0; i < 20; i++) // teste
 			umRegistro[i].imprime();
 		
-		cout << "criado " << cont << endl;
+		cout << "criado " << cont << endl;*/
 	}
 
-	arquivo_entrada.close();
+	ArquivoTemporario1.close();
+	ArquivoTemporario2.close();
 
-	//escreveOsRegistrosOrdenados();
+	remove("arqTemp1.bin");
+	remove("arqTemp2.bin");
+
+	arquivo_entrada.close();
 
 	delete [] umRegistro;
 	
 	return 0;
+	
 }

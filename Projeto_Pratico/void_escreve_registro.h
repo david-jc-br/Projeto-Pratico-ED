@@ -5,14 +5,13 @@
 #ifndef VOID_ESCREVE_REGISTROS_H
 #define VOID_ESCREVE_REGISTROS_H
 
-void escreveOsRegistrosOrdenados ()
+void escreveRegistros (std::ofstream &arquivo, Registro umRegistro[], int posicao_bytes, int tamanho_pacotes)
 {
-    std::ofstream arquivo_saida;
-
-    arquivo_saida.open("captura_pacotes.bin", std::ios::trunc| std::ios::out);
-
-    arquivo_saida.seekp(0,std::ios::beg); 
+    arquivo.seekp(posicao_bytes); // Posiciona a cabeça de leitura
 	
+    for (int i = 0; i < tamanho_pacotes; i++) //escrevendo vetor de objetos no arquivo
+        arquivo.write((char*) &umRegistro[i], sizeof(umRegistro[i]));
 }
+
 
 #endif
