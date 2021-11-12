@@ -30,14 +30,14 @@ int main ()
 	}
 
 	ifstream arquivo_entrada;
-	ofstream ArquivoTemporario1 ("arqTemp1.bin");
-	ofstream ArquivoTemporario2 ("arqTemp2.bin");
+	ofstream arquivoTemporario1 ("arqTemp1.bin");
+	ofstream arquivoTemporario2 ("arqTemp2.bin");
 
-	if ((!ArquivoTemporario1) | (!ArquivoTemporario2) | (!arquivo_entrada)) 
+	if ((!arquivoTemporario1) | (!arquivoTemporario2) | (!arquivo_entrada)) 
 	{
 		arquivo_entrada.close();
-		ArquivoTemporario1.close();
-		ArquivoTemporario2.close();	
+		arquivoTemporario1.close();
+		arquivoTemporario2.close();	
 		remove("arqTemp1.bin");
 		remove("arqTemp2.bin");
 
@@ -53,8 +53,8 @@ int main ()
 	const long int qtd_registro = tamanho_arquivo/tamanho_registro;
 	const int tamanho_pacotes = qtd_registro/4;
 
-	ArquivoTemporario1.open("arqTemp1.bin", ios::binary);
-	ArquivoTemporario2.open("arqTemp2.bin", ios::binary);
+	arquivoTemporario1.open("arqTemp1.bin", ios::binary);
+	arquivoTemporario2.open("arqTemp2.bin", ios::binary);
 
 	Registro *umRegistro = new Registro[tamanho_pacotes];
 	Registro objAux;
@@ -73,9 +73,9 @@ int main ()
 			posicao_arquivoTemp = tamanho_registro * (2 * tamanho_pacotes);
 
         if (cont == 0 | cont == 2)
-			escreveRegistros(ArquivoTemporario1, umRegistro, posicao_arquivoTemp, tamanho_pacotes);
+			escreveRegistros(arquivoTemporario1, umRegistro, posicao_arquivoTemp, tamanho_pacotes);
 		else 
-		    escreveRegistros(ArquivoTemporario2, umRegistro, posicao_arquivoTemp, tamanho_pacotes);
+		    escreveRegistros(arquivoTemporario2, umRegistro, posicao_arquivoTemp, tamanho_pacotes);
 
 		/*for(int i = 0; i < 20; i++) // teste
 			umRegistro[i].imprime();
@@ -83,8 +83,8 @@ int main ()
 		cout << "criado " << cont << endl;*/
 	}
 
-	ArquivoTemporario1.close();
-	ArquivoTemporario2.close();
+	arquivoTemporario1.close();
+	arquivoTemporario2.close();
 
 	remove("arqTemp1.bin");
 	remove("arqTemp2.bin");
