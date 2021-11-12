@@ -13,29 +13,6 @@ using namespace std;
 
 int main () 
 {
-	ifstream arquivo_entrada;
-	ofstream ArquivoTemporario1 ("arqTemp1.bin");
-	ofstream ArquivoTemporario2 ("arqTemp2.bin");
-	ArquivoTemporario1.open("arqTemp1.bin", ios::binary);
-	ArquivoTemporario2.open("arqTemp2.bin", ios::binary);
-
-	if ((!ArquivoTemporario1) | (!ArquivoTemporario2)) 
-	{
-		cerr << "Não foi possivél criar o arquivo" << endl;
-		exit(EXIT_FAILURE);
-	}
-
-	arquivo_entrada.open("captura_pacotes.bin", ios::in | ios::binary);
-	arquivo_entrada.seekg(0,ios::end);
-
-	const long int tamanho_arquivo = arquivo_entrada.tellg();
-	const short tamanho_registro = sizeof(Registro);
-	const long int qtd_registro = tamanho_arquivo/tamanho_registro;
-	const int tamanho_pacotes = qtd_registro/4;
-
-	Registro *umRegistro = new Registro[tamanho_pacotes];
-	Registro objAux;
-
 	short escolha_ordenacao;
 	int posicao_bytes;
 	int posicao_arquivoTemp;
@@ -52,6 +29,35 @@ int main ()
 		exit(EXIT_FAILURE);
 	}
 
+	ifstream arquivo_entrada;
+	ofstream ArquivoTemporario1 ("arqTemp1.bin");
+	ofstream ArquivoTemporario2 ("arqTemp2.bin");
+
+	if ((!ArquivoTemporario1) | (!ArquivoTemporario2) | (!arquivo_entrada)) 
+	{
+		arquivo_entrada.close();
+		ArquivoTemporario1.close();
+		ArquivoTemporario2.close();	
+		remove("arqTemp1.bin");
+		remove("arqTemp2.bin");
+
+		cerr << "Não foi possivél criar os arquivos para a ordenação" << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	arquivo_entrada.open("captura_pacotes.bin", ios::in | ios::binary);
+	arquivo_entrada.seekg(0,ios::end);
+
+	const long int tamanho_arquivo = arquivo_entrada.tellg();
+	const short tamanho_registro = sizeof(Registro);
+	const long int qtd_registro = tamanho_arquivo/tamanho_registro;
+	const int tamanho_pacotes = qtd_registro/4;
+
+	ArquivoTemporario1.open("arqTemp1.bin", ios::binary);
+	ArquivoTemporario2.open("arqTemp2.bin", ios::binary);
+
+	Registro *umRegistro = new Registro[tamanho_pacotes];
+	Registro objAux;
 
 	for (int cont = 0; cont < 4; cont++) 
 	{		
