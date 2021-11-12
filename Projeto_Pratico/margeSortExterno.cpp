@@ -51,8 +51,8 @@ bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, in
     while (((pos[0] + pos[1] )) < (2*passo)) {
 		cont++;
         // incialmente verificamos se há dados para ser lidos
-        if ((pos[0] < passo) and (!valido[0])) {
-            /*tentamos ler o arquivo verificando se a leitura foi válida */
+        if ((pos[0] < passo) && (!valido[0])) {
+            /*tentamos ler o arquivo verific&&o se a leitura foi válida */
             //leitura inválida -> final do arquivo
             if (auxE[0].read((char *) &dados[0] , sizeof(Registro))) {
                 // cout << "leu arq1: " << auxE[0].tellg() << endl;
@@ -66,8 +66,8 @@ bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, in
         }
 
         //repetimos o processo para o segundo arquivo
-        if ((pos[1] < passo) and (!valido[1])) {
-            /*tentamos ler o arquivo verificando se a leitura foi válida */
+        if ((pos[1] < passo) && (!valido[1])) {
+            /*tentamos ler o arquivo verific&&o se a leitura foi válida */
             //leitura inválida -> final do arquivo
             if (auxE[1].read((char *) &dados[1] , sizeof(Registro))) {
                 // cout << "leu arq1: " << auxE[0].tellg() << endl;
@@ -84,17 +84,17 @@ bool Registro::intercalaBloco (ifstream auxE[2], ofstream auxS[2], int passo, in
         não ser que um (ou ambos) tenham chegado a o fim*/
             
         //1° caso, os dois dados são válidos 
-        if (valido[0] and valido[1]) {
+        if (valido[0] && valido[1]) {
             // marca que intercalou
             intercalou = true;
             // gravamos o menor valor no arquivo de saída 
-            if (dados[0].indice >= dados[1].indice and escolha_ordenacao == 1) {
+            if (dados[0].indice >= dados[1].indice && escolha_ordenacao == 1) {
                 auxS[saida].write((const char *) (&dados[0]), sizeof(Registro));
                 // dado utilizado não é mais válido, avança posição
                 valido[0] = false;
                 pos[0]++;
             }
-            else if ((strcmp(dados[0].informacao,dados[1].informacao) < 0) and escolha_ordenacao == 2) {
+            else if ((strcmp(dados[0].informacao,dados[1].informacao) < 0) && escolha_ordenacao == 2) {
 				auxS[saida].write((const char *) (&dados[0]), sizeof(Registro));
                 // dado utilizado não é mais válido, avança posição
                 valido[0] = false;
@@ -140,7 +140,7 @@ void Registro::mergeexterno (ifstream &arqEntrada, fstream &arqSaida, int escolh
 
     Registro umDado;
 
-    //posicionando ponteiro de leitura no final do arquivo
+    //posicion&&o ponteiro de leitura no final do arquivo
     arqEntrada.seekg(0,ios::end);
     //obtendo a posicao final do arquivo
     int tamanho = arqEntrada.tellg();
@@ -152,7 +152,7 @@ void Registro::mergeexterno (ifstream &arqEntrada, fstream &arqSaida, int escolh
     //posicionado ponteiro de leitura no inicio do arquivo
     arqEntrada.seekg(0,ios::beg);
 
-    //copiando os dados para os dois arquivo auxiliares
+    //copi&&o os dados para os dois arquivo auxiliares
     for (int i = 0; i < metade; i++) {
         arqEntrada.read((char*) &umDado, sizeof(Registro));
         arqB1.write((char*) &umDado, sizeof(Registro));
@@ -194,7 +194,7 @@ void Registro::mergeexterno (ifstream &arqEntrada, fstream &arqSaida, int escolh
             cerr << "Arquivos auxiliares não puderam abertos" << endl;
             exit(EXIT_FAILURE);
         }
-        //enquanto não chegar ao final dos arquivos de entrada, vai intercalando os blocos
+        //enquanto não chegar ao final dos arquivos de entrada, vai intercal&&o os blocos
         while ((! auxEntrada[0].eof()) && (! auxEntrada[1].eof())){
             ultimo[0] = intercalaBloco(auxEntrada,auxSaida,passo,0,escolha_ordenacao);
             ultimo[1] = intercalaBloco(auxEntrada,auxSaida,passo,1,escolha_ordenacao);
@@ -206,12 +206,12 @@ void Registro::mergeexterno (ifstream &arqEntrada, fstream &arqSaida, int escolh
         auxSaida[0].close();
         auxSaida[1].close();
         
-        //prepara próxima interação, invertendo arquivos e dobrando tamanho do passo
+        //prepara próxima interação, invertendo arquivos e dobr&&o tamanho do passo
         ida = !(ida);
         passo *= 2;
     }
 
-    //merge terminando, agora lemos do arquivo auxiliar para arquivo de saida
+    //merge termin&&o, agora lemos do arquivo auxiliar para arquivo de saida
     ifstream auxEnt;
 
     //identifica o arquivo auxiliar com dados ordenados
@@ -255,7 +255,7 @@ void copiaRegistros (fstream &arquivo, Registro umRegistro[], int posicao_bytes)
 {
     arquivo.seekg(posicao_bytes); // Posiciona a cabeça de leitura
 	
-    for (int i = 0; i < 100000; i++) //copiando regitros para vetor o de objetos
+    for (int i = 0; i < 100000; i++) //copi&&o regitros para vetor o de objetos
         arquivo.read((char*) &umRegistro[i], sizeof(umRegistro[i]));
 }
 
@@ -282,10 +282,10 @@ int main () {
 
     umRegistro->mergeexterno(entrada,saida,escolha_ordenacao);
 
-    /*copiaRegistros(saida, umRegistro, 0);
+    copiaRegistros(saida, umRegistro, 0);
     
-    for(int i = 0; i < 100; i++) // teste
-			umRegistro[i].imprime();*/
+    for (int i = 0; i < 100; i++) // teste
+			umRegistro[i].imprime();
 			
     entrada.close();
     saida.close();
