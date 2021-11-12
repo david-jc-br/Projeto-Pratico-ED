@@ -13,5 +13,4 @@ void escreveRegistros (std::ofstream &arquivo, Registro umRegistro[], int posica
         arquivo.write((char*) &umRegistro[i], sizeof(umRegistro[i]));
 }
 
-
 #endif
