@@ -5,9 +5,9 @@
 #include <fstream>
 #include <cstdio>
 
-#include "void_escreve_registro.hpp"
-#include "void_copia_registros.hpp"
-#include "class_registro.hpp"
+#include "escreve_registro.hpp"
+#include "copia_registros.hpp"
+#include "registro.hpp"
 
 using namespace std;
 
