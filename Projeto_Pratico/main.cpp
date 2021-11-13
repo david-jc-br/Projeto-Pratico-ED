@@ -5,9 +5,9 @@
 #include <fstream>
 #include <cstdio>
 
-#include "void_escreve_registro.h"
-#include "void_copia_registros.h"
-#include "class_registro.h"
+#include "void_escreve_registro.hpp"
+#include "void_copia_registros.hpp"
+#include "class_registro.hpp"
 
 using namespace std;
 
@@ -23,7 +23,7 @@ int main () {
 
     Registro *umRegistro = new Registro[tamanho_pacotes];
 
-    short escolha_ordenacao;
+    short escolha;
     int posicao_bytes;
 
     if (arquivo_principal) { 
@@ -31,9 +31,9 @@ int main () {
              << "\n(1) Indice"
              << "\n(2) Informação\n\n->";
 
-        cin >> escolha_ordenacao;
+        cin >> escolha;
 
-        if ((escolha_ordenacao != 1 ) and (escolha_ordenacao != 2)) {
+        if ((escolha != 1 ) && (escolha != 2)) {
             cerr << "\"Opção inexistente\"" << endl;
             exit(EXIT_FAILURE);
         }
@@ -46,7 +46,7 @@ int main () {
     ofstream arqTemp1("arqTemp1.bin", ios::binary);
     ofstream arqTemp2("arqTemp2.bin", ios::binary);
 	
-    if((not arqTemp1) or (not arqTemp2)) {
+    if((! arqTemp1) | (! arqTemp2)) {
         cerr << "Não foi possivél abrir o arquivo" << endl;
         exit(EXIT_FAILURE);
     }
@@ -56,13 +56,14 @@ int main () {
 
             copiaRegistros(arquivo_principal, umRegistro, posicao_bytes, tamanho_pacotes);
 
-            umRegistro->mergeSortInterno(umRegistro,tamanho_pacotes,escolha_ordenacao);	
+            umRegistro->mergeSortInterno(umRegistro,tamanho_pacotes,escolha);	
 		
             if (cont == 0) 
                 escreveRegistros(arqTemp1, umRegistro, 0, tamanho_pacotes);
             else 
                 escreveRegistros(arqTemp2, umRegistro, 0, tamanho_pacotes);
         }
+    	delete [] umRegistro;
     }
 
     arquivo_principal.close();
@@ -71,33 +72,46 @@ int main () {
 	
     ofstream arquivoFinal("arquivoFinalOrdenado.bin",ios::binary);
 	
-    umRegistro->mergeSortExterno(arquivoFinal,escolha_ordenacao,qtd_registro);
+    umRegistro->mergeSortExterno(arquivoFinal,escolha,qtd_registro);
+
+	cout << "\n\n\'Ordenação Feita com Sucesso\'\n" << endl;
 	
     arquivoFinal.close();
-	
-    Registro *objAux= new Registro[qtd_registro];
-    
-    ifstream arq("arquivoFinalOrdenado.bin",ios::binary);
-    
-    
-    copiaRegistros(arq, objAux, 0, qtd_registro); 
-    
-        
-    for(int i = 0; i < 5; i++) // teste
-			objAux[i].imprime();
-	objAux[25000].imprime();
-    objAux[25000+1].imprime();
-    objAux[50000-1].imprime();
-    objAux[50000].imprime();
-    objAux[100000-1].imprime();
-	arq.close();
-	
-    //apagar arquivos auxiliares
+
+	//apagar arquivos auxiliares
     remove("arqTemp1.bin");
     remove("arqTemp2.bin");
     remove("arqTemp3.bin");
 
-    delete [] umRegistro;
+    cout << "\nGostaria de testar a ordenação ?\n" 
+		 << "\nDigite (1) Sim ou (2) Não\n-> ";
+	
+	cin >> escolha;
+
+	if (escolha == 1) {
+
+		cout << "\nQuantos registros você deseja imprimir?\n-> ";
+
+		int quantidade;
+		cin >> quantidade;
+
+		if (quantidade <= qtd_registro && quantidade > 0) {
+			Registro *objAux= new Registro[qtd_registro];
+			
+			ifstream arq("arquivoFinalOrdenado.bin",ios::binary);
+			
+			copiaRegistros(arq, objAux, 0, qtd_registro);
+
+			for(int i = 0; i < quantidade; i++) 
+				objAux[i].imprime();
+
+			arq.close();
+			delete [] objAux;
+		} else {
+			cerr << "\nQuantidade inválida!" << endl;
+			exit(EXIT_FAILURE);
+		}
+	}
 	
     return 0;
 }
