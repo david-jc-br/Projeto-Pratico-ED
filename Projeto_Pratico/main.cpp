@@ -14,6 +14,12 @@ using namespace std;
 int main () {
     ifstream arquivo_principal;
     arquivo_principal.open("captura_pacotes.bin", ios::in | ios::binary);
+
+    if (!arquivo_principal) {
+        cerr << "Não foi possivél abrir o arquivo" << endl;
+        exit(EXIT_FAILURE);
+    }
+
     arquivo_principal.seekg(0,ios::end);
 
     const long int tamanho_arquivo = arquivo_principal.tellg();
