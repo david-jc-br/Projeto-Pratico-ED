@@ -2,8 +2,8 @@
 #include <fstream>
 #include "class_registro.hpp"
 
-#ifndef VOID_COPIA_REGISTROS_H
-#define VOID_COPIA_REGISTROS_H
+#ifndef VOID_COPIA_REGISTROS_HPP
+#define VOID_COPIA_REGISTROS_HPP
 
 void copiaRegistros (std::ifstream &arquivo, Registro umRegistro[], int posicao_bytes, int tamanho_pacotes) {
     arquivo.seekg(posicao_bytes); // Posiciona a cabeça de leitura

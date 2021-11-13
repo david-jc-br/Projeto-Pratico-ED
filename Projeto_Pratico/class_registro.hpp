@@ -3,8 +3,8 @@
 #include <fstream>
 #include <cstring>
 
-#ifndef CLASS_REGISTRO_H 
-#define CLASS_REGISTRO_H
+#ifndef CLASS_REGISTRO_HPP 
+#define CLASS_REGISTRO_HPP
 
 class Registro {
     private:
